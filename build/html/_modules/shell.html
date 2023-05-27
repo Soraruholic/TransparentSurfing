@@ -1,0 +1,769 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>shell &#8212; Shadowsocks v0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/shell';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Shadowsocks v0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../modules.html">
+                        src
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../modules.html">
+                        src
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">shell</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for shell</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on 2013-05-27 By mafuholic</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">getopt</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">signal</span>
+
+<span class="kn">from</span> <span class="nn">common</span> <span class="kn">import</span> <span class="n">to_bytes</span><span class="p">,</span> <span class="n">to_str</span>
+
+<span class="n">VERBOSE_LEVEL</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">t_b</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">short_opts</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">v_count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">long_opts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">err_msg</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Python 2.6 or newer is required, but you are running&quot;</span><span class="p">,</span>
+           <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;mode should either be server or local&quot;</span><span class="p">,</span>
+           <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;JSON format error in config file:&quot;</span><span class="p">,</span>
+           <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;Options can not get parsed from command line&quot;</span><span class="p">,</span>
+           <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;Config file not found&quot;</span><span class="p">,</span>
+           <span class="mi">6</span><span class="p">:</span> <span class="s2">&quot;server address not specified&quot;</span><span class="p">,}</span>
+
+
+<div class="viewcode-block" id="error_handler"><a class="viewcode-back" href="../shell.html#shell.error_handler">[docs]</a><span class="k">def</span> <span class="nf">error_handler</span><span class="p">(</span>
+        <span class="n">error_no</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">error_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">tb</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">trace_back</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    handle all exceptions</span>
+
+<span class="sd">    :param error_no: exception type</span>
+<span class="sd">    :param error_text: exception value</span>
+<span class="sd">    :param tb: traceback</span>
+<span class="sd">    :param trace_back: whether to print traceback</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">trace_back</span><span class="p">:</span>
+        <span class="n">tb</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;[E</span><span class="si">{}</span><span class="s2">]: </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">error_no</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">[</span><span class="n">error_no</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">error_text</span><span class="p">)),</span> <span class="n">exc_info</span><span class="o">=</span><span class="n">tb</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="c1"># exit all threads</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">(),</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="check_python_version"><a class="viewcode-back" href="../shell.html#shell.check_python_version">[docs]</a><span class="k">def</span> <span class="nf">check_python_version</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    check whether the python version is 2.6 or newer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">error_handler</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)),</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span> <span class="n">t_b</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_config"><a class="viewcode-back" href="../shell.html#shell.get_config">[docs]</a><span class="k">def</span> <span class="nf">get_config</span><span class="p">(</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    get configuration from command line and config file</span>
+
+<span class="sd">    :param mode: whether the config file is for server or client</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># declare a global verbose to be updated by config</span>
+    <span class="k">global</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">short_opts</span><span class="p">,</span> <span class="n">long_opts</span>
+    <span class="c1"># take specific template for parsing command line into config</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;server&quot;</span><span class="p">:</span>
+            <span class="n">short_opts</span> <span class="o">=</span> <span class="s1">&#39;hd:s:b:p:k:l:m:c:t:vqa&#39;</span>
+            <span class="n">long_opts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="s1">&#39;fast-open&#39;</span><span class="p">,</span> <span class="s1">&#39;pid-file=&#39;</span><span class="p">,</span> <span class="s1">&#39;log-file=&#39;</span><span class="p">,</span> <span class="s1">&#39;user=&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;version&#39;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;local&quot;</span><span class="p">:</span>
+            <span class="n">short_opts</span> <span class="o">=</span> <span class="s1">&#39;hd:s:p:k:m:c:t:vqa&#39;</span>
+            <span class="n">long_opts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="s1">&#39;fast-open&#39;</span><span class="p">,</span> <span class="s1">&#39;pid-file=&#39;</span><span class="p">,</span> <span class="s1">&#39;log-file=&#39;</span><span class="p">,</span> <span class="s1">&#39;workers=&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;forbidden-ip=&#39;</span><span class="p">,</span> <span class="s1">&#39;user=&#39;</span><span class="p">,</span> <span class="s1">&#39;manager-address=&#39;</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;prefer-ipv6&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">error_handler</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)),</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span> <span class="n">t_b</span><span class="p">)</span>
+
+    <span class="c1"># parse command line</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># try finding the config file under default paths</span>
+        <span class="n">config_path</span> <span class="o">=</span> <span class="n">find_config</span><span class="p">()</span>
+
+        <span class="c1"># parse command line</span>
+        <span class="n">opt_list</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">getopt</span><span class="o">.</span><span class="n">getopt</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">short_opts</span><span class="p">,</span> <span class="n">long_opts</span><span class="p">)</span>
+
+        <span class="c1"># find whether there is a config file specified in command line</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">opt_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;-c&#39;</span><span class="p">:</span>
+                <span class="n">config_path</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="k">break</span>
+
+        <span class="c1"># read the config file from the specified path if it is declared in command line</span>
+        <span class="k">if</span> <span class="n">config_path</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Loading config from </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">),</span> <span class="n">object_hook</span><span class="o">=</span><span class="n">decode_dict</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">error_handler</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span> <span class="n">t_b</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># re-format the arguments parsed from command line</span>
+        <span class="n">k2args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;-p&quot;</span><span class="p">:</span> <span class="s2">&quot;server&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;-k&quot;</span><span class="p">:</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;-l&quot;</span><span class="p">:</span> <span class="s2">&quot;local_port&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;-s&quot;</span><span class="p">:</span> <span class="s2">&quot;server&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;-m&quot;</span><span class="p">:</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;-b&quot;</span><span class="p">:</span> <span class="s2">&quot;local_address&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;-v&quot;</span><span class="p">:</span> <span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;-a&quot;</span><span class="p">:</span> <span class="s2">&quot;one_time_auth&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;-t&quot;</span><span class="p">:</span> <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;-d&quot;</span><span class="p">:</span> <span class="s2">&quot;daemon&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;-q&quot;</span><span class="p">:</span> <span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;--pid-file&quot;</span><span class="p">:</span> <span class="s2">&quot;pid_file&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;--log-file&quot;</span><span class="p">:</span> <span class="s2">&quot;log_file&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;--prefer-ipv6&quot;</span><span class="p">:</span> <span class="s2">&quot;prefer_ipv6&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;--fast-open&quot;</span><span class="p">:</span> <span class="s2">&quot;fast_open&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;--workers&quot;</span><span class="p">:</span> <span class="s2">&quot;workers&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;--manager-address&quot;</span><span class="p">:</span> <span class="s2">&quot;manager_address&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;--user&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;--forbidden-ip&quot;</span><span class="p">:</span> <span class="s2">&quot;forbidden_ip&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;--version&quot;</span><span class="p">:</span> <span class="s2">&quot;show_version&quot;</span><span class="p">,</span>
+                  <span class="p">}</span>
+        <span class="k">global</span> <span class="n">v_count</span>
+        <span class="n">v_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">def</span> <span class="nf">to_int</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+            <span class="n">config</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">to_byte</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+            <span class="n">config</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_bytes</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">to_string</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">arg</span> <span class="o">==</span> <span class="s2">&quot;--manager-address&quot;</span><span class="p">:</span>
+                <span class="n">config</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">config</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">direct_assign</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+            <span class="n">config</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+
+        <span class="k">def</span> <span class="nf">add_verbose</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+            <span class="k">global</span> <span class="n">v_count</span>
+            <span class="n">v_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">config</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="n">v_count</span>
+
+        <span class="k">def</span> <span class="nf">sub_verbose</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+            <span class="k">global</span> <span class="n">v_count</span>
+            <span class="n">v_count</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">config</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="n">v_count</span>
+
+        <span class="k">def</span> <span class="nf">set_true</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+            <span class="n">config</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">def</span> <span class="nf">print_help</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;server&quot;</span><span class="p">:</span>
+                <span class="n">print_server_help</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;local&quot;</span><span class="p">:</span>
+                <span class="n">print_local_help</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">print_ss_version</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">pkg_resources</span>
+                <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.0.0&quot;</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shadowsocks </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">version</span><span class="p">))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">reformat_options</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;-p&#39;</span><span class="p">:</span> <span class="n">to_int</span><span class="p">,</span>
+            <span class="s1">&#39;-k&#39;</span><span class="p">:</span> <span class="n">to_byte</span><span class="p">,</span>
+            <span class="s1">&#39;-l&#39;</span><span class="p">:</span> <span class="n">to_int</span><span class="p">,</span>
+            <span class="s1">&#39;-s&#39;</span><span class="p">:</span> <span class="n">to_string</span><span class="p">,</span>
+            <span class="s1">&#39;-m&#39;</span><span class="p">:</span> <span class="n">to_string</span><span class="p">,</span>
+            <span class="s1">&#39;-b&#39;</span><span class="p">:</span> <span class="n">to_string</span><span class="p">,</span>
+            <span class="s1">&#39;-v&#39;</span><span class="p">:</span> <span class="n">add_verbose</span><span class="p">,</span>
+            <span class="s1">&#39;-a&#39;</span><span class="p">:</span> <span class="n">set_true</span><span class="p">,</span>
+            <span class="s1">&#39;-t&#39;</span><span class="p">:</span> <span class="n">to_int</span><span class="p">,</span>
+            <span class="s1">&#39;-h&#39;</span><span class="p">:</span> <span class="n">print_help</span><span class="p">,</span>
+            <span class="s1">&#39;-d&#39;</span><span class="p">:</span> <span class="n">to_string</span><span class="p">,</span>
+            <span class="s1">&#39;-q&#39;</span><span class="p">:</span> <span class="n">sub_verbose</span><span class="p">,</span>
+            <span class="s1">&#39;--help&#39;</span><span class="p">:</span> <span class="n">print_help</span><span class="p">,</span>
+            <span class="s1">&#39;--fast-open&#39;</span><span class="p">:</span> <span class="n">set_true</span><span class="p">,</span>
+            <span class="s1">&#39;--workers&#39;</span><span class="p">:</span> <span class="n">to_int</span><span class="p">,</span>
+            <span class="s1">&#39;--manager-address&#39;</span><span class="p">:</span> <span class="n">direct_assign</span><span class="p">,</span>
+            <span class="s1">&#39;--user&#39;</span><span class="p">:</span> <span class="n">to_string</span><span class="p">,</span>
+            <span class="s1">&#39;--forbidden-ip&#39;</span><span class="p">:</span> <span class="n">to_string</span><span class="p">,</span>
+            <span class="s1">&#39;--version&#39;</span><span class="p">:</span> <span class="n">print_ss_version</span><span class="p">,</span>
+            <span class="s1">&#39;--pid-file&#39;</span><span class="p">:</span> <span class="n">to_string</span><span class="p">,</span>
+            <span class="s1">&#39;--log-file&#39;</span><span class="p">:</span> <span class="n">to_string</span><span class="p">,</span>
+            <span class="s1">&#39;--prefer-ipv6&#39;</span><span class="p">:</span> <span class="n">set_true</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">opt_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">reformat_options</span><span class="p">:</span>
+                <span class="n">reformat_options</span><span class="p">[</span><span class="n">k</span><span class="p">](</span><span class="n">k2args</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">getopt</span><span class="o">.</span><span class="n">GetoptError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">print_help</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">error_handler</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="p">:</span>
+        <span class="n">error_handler</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+
+    <span class="c1"># get configuration from config file and set default values</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_bytes</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_str</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">,</span> <span class="s1">&#39;aes-256-cfb&#39;</span><span class="p">))</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;port_password&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;port_password&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;timeout&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timeout&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">))</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;fast_open&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fast_open&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;workers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;workers&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;pid-file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;pid-file&#39;</span><span class="p">,</span> <span class="s1">&#39;/var/run/shadowsocks.pid&#39;</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;log-file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;log-file&#39;</span><span class="p">,</span> <span class="s1">&#39;/var/log/shadowsocks.log&#39;</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;local_address&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_str</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;local_address&#39;</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">))</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;local_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;local_port&#39;</span><span class="p">,</span> <span class="mi">1080</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;one_time_auth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;one_time_auth&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;prefer_ipv6&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;prefer_ipv6&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;server_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;server_port&#39;</span><span class="p">,</span> <span class="mi">8388</span><span class="p">)</span>
+
+    <span class="c1"># set log level of logger</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">addLevelName</span><span class="p">(</span><span class="n">VERBOSE_LEVEL</span><span class="p">,</span> <span class="s1">&#39;VERBOSE&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">VERBOSE_LEVEL</span>
+    <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
+    <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARN</span>
+    <span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">]</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span>
+                        <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(levelname)-8s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+                        <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+
+    <span class="c1"># check the configuration</span>
+    <span class="n">check_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">config</span></div>
+
+
+<div class="viewcode-block" id="check_config"><a class="viewcode-back" href="../shell.html#shell.check_config">[docs]</a><span class="k">def</span> <span class="nf">check_config</span><span class="p">(</span>
+    <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    check the configuration</span>
+
+<span class="sd">    :param config: the configuration to be checked</span>
+<span class="sd">    :param mode: the mode of the configuration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;daemon&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;stop&#39;</span><span class="p">:</span>
+        <span class="c1"># no need to specify configuration for daemon stop</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;local&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">error_handler</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">config</span><span class="p">[</span><span class="s1">&#39;server&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_str</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;server&#39;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">config</span><span class="p">[</span><span class="s1">&#39;server&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_str</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">))</span></div>
+        <span class="c1"># try:</span>
+        <span class="c1">#     config[&#39;forbidden_ip&#39;] = IPNetwork</span>
+
+<div class="viewcode-block" id="decode_list"><a class="viewcode-back" href="../shell.html#shell.decode_list">[docs]</a><span class="k">def</span> <span class="nf">decode_list</span><span class="p">(</span>
+    <span class="n">lst</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    decode the list from json to utf-8</span>
+
+<span class="sd">    :param lst: the list to be decoded</span>
+<span class="sd">    :rtype: list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">new_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s1">&#39;encode&#39;</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">decode_dict</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">decode_list</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">new_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_list</span></div>
+
+
+<div class="viewcode-block" id="decode_dict"><a class="viewcode-back" href="../shell.html#shell.decode_dict">[docs]</a><span class="k">def</span> <span class="nf">decode_dict</span><span class="p">(</span>
+    <span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    decode the dict from json to utf-8</span>
+
+<span class="sd">    :param d: the dict to be decoded</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">new_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s1">&#39;encode&#39;</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">decode_dict</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">decode_list</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">new_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="n">new_dict</span></div>
+
+
+<div class="viewcode-block" id="find_config"><a class="viewcode-back" href="../shell.html#shell.find_config">[docs]</a><span class="k">def</span> <span class="nf">find_config</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    find the config file through default paths</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># try the default path</span>
+    <span class="n">config_path</span> <span class="o">=</span> <span class="s2">&quot;../source/config.json&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">config_path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">config_path</span>
+
+    <span class="c1"># try the path in upper folder</span>
+    <span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;../&#39;</span><span class="p">,</span> <span class="s2">&quot;config.json&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">config_path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">config_path</span>
+
+    <span class="c1"># all possible default paths have been tried, but failed</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="print_server_help"><a class="viewcode-back" href="../shell.html#shell.print_server_help">[docs]</a><span class="k">def</span> <span class="nf">print_server_help</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    print the help message for server</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;usage: ssserver [OPTION]...</span>
+<span class="s1">    A fast tunnel proxy that helps you bypass firewalls.</span>
+<span class="s1">    </span>
+<span class="s1">    You can supply configurations via either config file or command line arguments.</span>
+<span class="s1">    </span>
+<span class="s1">    Proxy options:</span>
+<span class="s1">      -c CONFIG              path to config file</span>
+<span class="s1">      -s SERVER_ADDR         server address, default: 0.0.0.0</span>
+<span class="s1">      -p SERVER_PORT         server port, default: 8388</span>
+<span class="s1">      -k PASSWORD            password</span>
+<span class="s1">      -m METHOD              encryption method, default: aes-256-cfb</span>
+<span class="s1">      -t TIMEOUT             timeout in seconds, default: 300</span>
+<span class="s1">      -a ONE_TIME_AUTH       one time auth</span>
+<span class="s1">      --fast-open            use TCP_FASTOPEN, requires Linux 3.7+</span>
+<span class="s1">      --workers WORKERS      number of workers, available on Unix/Linux</span>
+<span class="s1">      --forbidden-ip IPLIST  comma seperated IP list forbidden to connect</span>
+<span class="s1">      --manager-address ADDR optional server manager UDP address, see wiki</span>
+<span class="s1">      --prefer-ipv6          resolve ipv6 address first</span>
+<span class="s1">    </span>
+<span class="s1">    General options:</span>
+<span class="s1">      -h, --help             show this help message and exit</span>
+<span class="s1">      -d start/stop/restart  daemon mode</span>
+<span class="s1">      --pid-file PID_FILE    pid file for daemon mode</span>
+<span class="s1">      --log-file LOG_FILE    log file for daemon mode</span>
+<span class="s1">      --user USER            username to run as</span>
+<span class="s1">      -v, -vv                verbose mode</span>
+<span class="s1">      -q, -qq                quiet mode, only show warnings/errors</span>
+<span class="s1">      --version              show version information</span>
+<span class="s1">    </span>
+<span class="s1">    Online help: &lt;https://github.com/shadowsocks/shadowsocks&gt;&#39;&#39;&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="print_local_help"><a class="viewcode-back" href="../shell.html#shell.print_local_help">[docs]</a><span class="k">def</span> <span class="nf">print_local_help</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    print the help message for local</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;usage: sslocal [OPTION]...</span>
+<span class="s1">    A fast tunnel proxy that helps you bypass firewalls.</span>
+<span class="s1">    </span>
+<span class="s1">    You can supply configurations via either config file or command line arguments.</span>
+<span class="s1">    </span>
+<span class="s1">    Proxy options:</span>
+<span class="s1">      -c CONFIG              path to config file</span>
+<span class="s1">      -s SERVER_ADDR         server address</span>
+<span class="s1">      -p SERVER_PORT         server port, default: 8388</span>
+<span class="s1">      -b LOCAL_ADDR          local binding address, default: 127.0.0.1</span>
+<span class="s1">      -l LOCAL_PORT          local port, default: 1080</span>
+<span class="s1">      -k PASSWORD            password</span>
+<span class="s1">      -m METHOD              encryption method, default: aes-256-cfb</span>
+<span class="s1">      -t TIMEOUT             timeout in seconds, default: 300</span>
+<span class="s1">      -a ONE_TIME_AUTH       one time auth</span>
+<span class="s1">      --fast-open            use TCP_FASTOPEN, requires Linux 3.7+</span>
+<span class="s1">    </span>
+<span class="s1">    General options:</span>
+<span class="s1">      -h, --help             show this help message and exit</span>
+<span class="s1">      -d start/stop/restart  daemon mode</span>
+<span class="s1">      --pid-file PID_FILE    pid file for daemon mode</span>
+<span class="s1">      --log-file LOG_FILE    log file for daemon mode</span>
+<span class="s1">      --user USER            username to run as</span>
+<span class="s1">      -v, -vv                verbose mode</span>
+<span class="s1">      -q, -qq                quiet mode, only show warnings/errors</span>
+<span class="s1">      --version              show version information</span>
+<span class="s1">    </span>
+<span class="s1">    Online help: &lt;https://github.com/shadowsocks/shadowsocks&gt;&#39;&#39;&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, mafuholic.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
