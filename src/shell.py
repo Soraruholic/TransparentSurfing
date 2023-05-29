@@ -9,8 +9,6 @@ import os
 import json
 import signal
 
-from common import to_bytes, to_str
-
 VERBOSE_LEVEL = 5
 verbose = 0
 t_b = False
@@ -18,11 +16,15 @@ short_opts = ""
 v_count = 0
 long_opts = []
 err_msg = {1: "Python 2.6 or newer is required, but you are running",
-           2: "mode should either be server or local",
+           2: "Mode should either be server or local",
            3: "JSON format error in config file:",
            4: "Options can not get parsed from command line",
            5: "Config file not found",
-           6: "server address not specified",}
+           6: "Server address not specified",
+           7: "Not a valid CIDR notation:",
+           8: "Password not specified",
+           9: "Neither password nor port_password specified",
+           10: 'DON\'T USE DEFAULT PASSWORD! Please change it in your config.json!'}
 
 
 def error_handler(
@@ -42,11 +44,12 @@ def error_handler(
     if not trace_back:
         tb = ""
     logging.error("[E{}]: {} {}".format(error_no, err_msg[error_no], str(error_text)), exc_info=tb)
-    if type == KeyboardInterrupt:
-        # exit all threads
-        os.kill(os.getpid(), signal.SIGTERM)
-    else:
-        sys.exit(1)
+    if trace_back:
+        if type == KeyboardInterrupt:
+            # exit all threads
+            os.kill(os.getpid(), signal.SIGTERM)
+        else:
+            sys.exit(1)
 
 
 def check_python_version():
@@ -60,8 +63,11 @@ def check_python_version():
         error_handler(int(str(e)), sys.version_info[:2], traceback.format_exc(), t_b)
 
 
+from common import to_bytes, to_str
+
+
 def get_config(
-    mode: str,
+        mode: str,
 ):
     """
     get configuration from command line and config file
@@ -69,7 +75,6 @@ def get_config(
     :param mode: whether the config file is for server or client
     :rtype: dict
     """
-
     # declare a global verbose to be updated by config
     global verbose, short_opts, long_opts
     # take specific template for parsing command line into config
@@ -137,6 +142,7 @@ def get_config(
                   }
         global v_count
         v_count = 0
+
         def to_int(arg, val):
             config[arg] = int(val)
 
@@ -211,10 +217,10 @@ def get_config(
                 reformat_options[k](k2args[k], v)
     except getopt.GetoptError as e:
         print_help('', '')
-        error_handler(4, str(e), traceback.format_exc())
+        error_handler(4, str(e), traceback.format_exc(), t_b)
 
     if not config:
-        error_handler(5, '', traceback.format_exc())
+        error_handler(5, '', traceback.format_exc(), t_b)
 
     # get configuration from config file and set default values
     config['password'] = to_bytes(config.get('password', b''))
@@ -257,8 +263,8 @@ def get_config(
 
 
 def check_config(
-    config: dict,
-    mode: str,
+        config: dict,
+        mode: str,
 ):
     """
     check the configuration
@@ -266,22 +272,71 @@ def check_config(
     :param config: the configuration to be checked
     :param mode: the mode of the configuration
     """
+    from common import IPNetwork
     if config.get('daemon', None) == 'stop':
         # no need to specify configuration for daemon stop
         return
 
     if mode == 'local':
+        # check whether server address is specified for local client
         if config.get('server', None) is None:
-            error_handler(6, '', traceback.format_exc())
+            error_handler(6, '', traceback.format_exc(), t_b)
         else:
             config['server'] = to_str(config['server'])
     else:
+        # get server address and load forbidden ip list
         config['server'] = to_str(config.get('server', '0.0.0.0'))
-        # try:
-        #     config['forbidden_ip'] = IPNetwork
+        config['forbidden_ip'] = IPNetwork(config.get('forbidden_ip', '127.0.0.0/8,::1/128'))
+
+    # check whether a password is specified for local client
+    try:
+        if mode == 'local' and not config.get('password', None):
+            raise ValueError(8)
+    except ValueError as e:
+        error_handler(int(str(e)), '', traceback.format_exc(), t_b)
+
+    # check whether a password is specified for server
+    try:
+        if mode == 'server' and not config.get('password', None) \
+                and not config.get('port_password', None) \
+                and not config.get('manager_address', None):
+            raise ValueError(9)
+    except ValueError as e:
+        error_handler(int(str(e)), '', traceback.format_exc(), t_b)
+
+    if 'local_port' in config:
+        config['local_port'] = int(config['local_port'])
+    if 'server_port' in config and type(config['server_port']) != list:
+        config['server_port'] = int(config['server_port'])
+
+    if config.get('local_address', '') in [b'0.0.0.0']:
+        logging.warning('local set to listen on 0.0.0.0, it\'s not safe')
+    if config.get('server', '') in ['127.0.0.1', 'localhost']:
+        logging.warning('server set to listen on %s:%s, are you sure?' %
+                        (to_str(config['server']), config['server_port']))
+    if (config.get('method', '') or '').lower() == 'table':
+        logging.warning('table is not safe; please use a safer cipher, '
+                        'like AES-256-CFB')
+    if (config.get('method', '') or '').lower() == 'rc4':
+        logging.warning('RC4 is not safe; please use a safer cipher, '
+                        'like AES-256-CFB')
+    if config.get('timeout', 300) < 100:
+        logging.warning('your timeout %d seems too short' %
+                        int(config.get('timeout')))
+    if config.get('timeout', 300) > 600:
+        logging.warning('your timeout %d seems too long' %
+                        int(config.get('timeout')))
+    try:
+        if config.get('password', '') in [b'mypassword']:
+            raise ValueError(10)
+    except ValueError as e:
+        error_handler(int(str(e)), '', traceback.format_exc(), t_b)
+
+    encrypt.try_cipher(config['password'], config['method'])
+
 
 def decode_list(
-    lst: list,
+        lst: list,
 ):
     """
     decode the list from json to utf-8
@@ -302,7 +357,7 @@ def decode_list(
 
 
 def decode_dict(
-    d: dict,
+        d: dict,
 ):
     """
     decode the dict from json to utf-8
@@ -322,18 +377,19 @@ def decode_dict(
     return new_dict
 
 
-def find_config():
+def find_config(
+        config_path: str = "./config.json",
+):
     """
     find the config file through default paths
     :rtype: str
     """
     # try the default path
-    config_path = "../source/config.json"
     if os.path.exists(config_path):
         return config_path
 
     # try the path in upper folder
-    config_path = os.path.join(os.path.dirname(__file__), '../', "config.json")
+    config_path = os.path.join('../', "config.json")
     if os.path.exists(config_path):
         return config_path
 

@@ -1,12 +1,16 @@
-import shell
+"""
+shadowsocks server
+"""
+from shell import check_python_version, get_config, print_server_help
 
 
 def run():
     """
     run the shadowsocks server
     """
-    shell.check_python_version()
-    config = shell.get_config(mode="server")
+    check_python_version()
+    config = get_config(mode="server")
+
 
 
 if __name__ == '__main__':

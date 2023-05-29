@@ -294,8 +294,6 @@ document.write(`
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">signal</span>
 
-<span class="kn">from</span> <span class="nn">common</span> <span class="kn">import</span> <span class="n">to_bytes</span><span class="p">,</span> <span class="n">to_str</span>
-
 <span class="n">VERBOSE_LEVEL</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">t_b</span> <span class="o">=</span> <span class="kc">False</span>
@@ -303,11 +301,15 @@ document.write(`
 <span class="n">v_count</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">long_opts</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">err_msg</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Python 2.6 or newer is required, but you are running&quot;</span><span class="p">,</span>
-           <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;mode should either be server or local&quot;</span><span class="p">,</span>
+           <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;Mode should either be server or local&quot;</span><span class="p">,</span>
            <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;JSON format error in config file:&quot;</span><span class="p">,</span>
            <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;Options can not get parsed from command line&quot;</span><span class="p">,</span>
            <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;Config file not found&quot;</span><span class="p">,</span>
-           <span class="mi">6</span><span class="p">:</span> <span class="s2">&quot;server address not specified&quot;</span><span class="p">,}</span>
+           <span class="mi">6</span><span class="p">:</span> <span class="s2">&quot;Server address not specified&quot;</span><span class="p">,</span>
+           <span class="mi">7</span><span class="p">:</span> <span class="s2">&quot;Not a valid CIDR notation:&quot;</span><span class="p">,</span>
+           <span class="mi">8</span><span class="p">:</span> <span class="s2">&quot;Password not specified&quot;</span><span class="p">,</span>
+           <span class="mi">9</span><span class="p">:</span> <span class="s2">&quot;Neither password nor port_password specified&quot;</span><span class="p">,</span>
+           <span class="mi">10</span><span class="p">:</span> <span class="s1">&#39;DON</span><span class="se">\&#39;</span><span class="s1">T USE DEFAULT PASSWORD! Please change it in your config.json!&#39;</span><span class="p">}</span>
 
 
 <div class="viewcode-block" id="error_handler"><a class="viewcode-back" href="../shell.html#shell.error_handler">[docs]</a><span class="k">def</span> <span class="nf">error_handler</span><span class="p">(</span>
@@ -327,11 +329,12 @@ document.write(`
     <span class="k">if</span> <span class="ow">not</span> <span class="n">trace_back</span><span class="p">:</span>
         <span class="n">tb</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;[E</span><span class="si">{}</span><span class="s2">]: </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">error_no</span><span class="p">,</span> <span class="n">err_msg</span><span class="p">[</span><span class="n">error_no</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">error_text</span><span class="p">)),</span> <span class="n">exc_info</span><span class="o">=</span><span class="n">tb</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-        <span class="c1"># exit all threads</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">(),</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+    <span class="k">if</span> <span class="n">trace_back</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="c1"># exit all threads</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">(),</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="check_python_version"><a class="viewcode-back" href="../shell.html#shell.check_python_version">[docs]</a><span class="k">def</span> <span class="nf">check_python_version</span><span class="p">():</span>
@@ -345,8 +348,11 @@ document.write(`
         <span class="n">error_handler</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)),</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span> <span class="n">t_b</span><span class="p">)</span></div>
 
 
+<span class="kn">from</span> <span class="nn">common</span> <span class="kn">import</span> <span class="n">to_bytes</span><span class="p">,</span> <span class="n">to_str</span>
+
+
 <div class="viewcode-block" id="get_config"><a class="viewcode-back" href="../shell.html#shell.get_config">[docs]</a><span class="k">def</span> <span class="nf">get_config</span><span class="p">(</span>
-    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    get configuration from command line and config file</span>
@@ -354,7 +360,6 @@ document.write(`
 <span class="sd">    :param mode: whether the config file is for server or client</span>
 <span class="sd">    :rtype: dict</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="c1"># declare a global verbose to be updated by config</span>
     <span class="k">global</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">short_opts</span><span class="p">,</span> <span class="n">long_opts</span>
     <span class="c1"># take specific template for parsing command line into config</span>
@@ -422,6 +427,7 @@ document.write(`
                   <span class="p">}</span>
         <span class="k">global</span> <span class="n">v_count</span>
         <span class="n">v_count</span> <span class="o">=</span> <span class="mi">0</span>
+
         <span class="k">def</span> <span class="nf">to_int</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
             <span class="n">config</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
 
@@ -496,10 +502,10 @@ document.write(`
                 <span class="n">reformat_options</span><span class="p">[</span><span class="n">k</span><span class="p">](</span><span class="n">k2args</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">getopt</span><span class="o">.</span><span class="n">GetoptError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">print_help</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="n">error_handler</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="n">error_handler</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span> <span class="n">t_b</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="p">:</span>
-        <span class="n">error_handler</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+        <span class="n">error_handler</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span> <span class="n">t_b</span><span class="p">)</span>
 
     <span class="c1"># get configuration from config file and set default values</span>
     <span class="n">config</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_bytes</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
@@ -542,8 +548,8 @@ document.write(`
 
 
 <div class="viewcode-block" id="check_config"><a class="viewcode-back" href="../shell.html#shell.check_config">[docs]</a><span class="k">def</span> <span class="nf">check_config</span><span class="p">(</span>
-    <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    check the configuration</span>
@@ -551,22 +557,71 @@ document.write(`
 <span class="sd">    :param config: the configuration to be checked</span>
 <span class="sd">    :param mode: the mode of the configuration</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">common</span> <span class="kn">import</span> <span class="n">IPNetwork</span>
     <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;daemon&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;stop&#39;</span><span class="p">:</span>
         <span class="c1"># no need to specify configuration for daemon stop</span>
         <span class="k">return</span>
 
     <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;local&#39;</span><span class="p">:</span>
+        <span class="c1"># check whether server address is specified for local client</span>
         <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">error_handler</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+            <span class="n">error_handler</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span> <span class="n">t_b</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">config</span><span class="p">[</span><span class="s1">&#39;server&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_str</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;server&#39;</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">config</span><span class="p">[</span><span class="s1">&#39;server&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_str</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">))</span></div>
-        <span class="c1"># try:</span>
-        <span class="c1">#     config[&#39;forbidden_ip&#39;] = IPNetwork</span>
+        <span class="c1"># get server address and load forbidden ip list</span>
+        <span class="n">config</span><span class="p">[</span><span class="s1">&#39;server&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_str</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">))</span>
+        <span class="n">config</span><span class="p">[</span><span class="s1">&#39;forbidden_ip&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">IPNetwork</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;forbidden_ip&#39;</span><span class="p">,</span> <span class="s1">&#39;127.0.0.0/8,::1/128&#39;</span><span class="p">))</span>
+
+    <span class="c1"># check whether a password is specified for local client</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;local&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">error_handler</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)),</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span> <span class="n">t_b</span><span class="p">)</span>
+
+    <span class="c1"># check whether a password is specified for server</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;server&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> \
+                <span class="ow">and</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;port_password&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> \
+                <span class="ow">and</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;manager_address&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">error_handler</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)),</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span> <span class="n">t_b</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;local_port&#39;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
+        <span class="n">config</span><span class="p">[</span><span class="s1">&#39;local_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;local_port&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s1">&#39;server_port&#39;</span> <span class="ow">in</span> <span class="n">config</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;server_port&#39;</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">config</span><span class="p">[</span><span class="s1">&#39;server_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;server_port&#39;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;local_address&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">]:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;local set to listen on 0.0.0.0, it</span><span class="se">\&#39;</span><span class="s1">s not safe&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="s1">&#39;localhost&#39;</span><span class="p">]:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;server set to listen on </span><span class="si">%s</span><span class="s1">:</span><span class="si">%s</span><span class="s1">, are you sure?&#39;</span> <span class="o">%</span>
+                        <span class="p">(</span><span class="n">to_str</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;server&#39;</span><span class="p">]),</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;server_port&#39;</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;table&#39;</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;table is not safe; please use a safer cipher, &#39;</span>
+                        <span class="s1">&#39;like AES-256-CFB&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;rc4&#39;</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;RC4 is not safe; please use a safer cipher, &#39;</span>
+                        <span class="s1">&#39;like AES-256-CFB&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timeout&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;your timeout </span><span class="si">%d</span><span class="s1"> seems too short&#39;</span> <span class="o">%</span>
+                        <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timeout&#39;</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timeout&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">600</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;your timeout </span><span class="si">%d</span><span class="s1"> seems too long&#39;</span> <span class="o">%</span>
+                        <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timeout&#39;</span><span class="p">)))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;mypassword&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">error_handler</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)),</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span> <span class="n">t_b</span><span class="p">)</span>
+
+    <span class="n">encrypt</span><span class="o">.</span><span class="n">try_cipher</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">])</span></div>
+
 
 <div class="viewcode-block" id="decode_list"><a class="viewcode-back" href="../shell.html#shell.decode_list">[docs]</a><span class="k">def</span> <span class="nf">decode_list</span><span class="p">(</span>
-    <span class="n">lst</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+        <span class="n">lst</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    decode the list from json to utf-8</span>
@@ -587,7 +642,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="decode_dict"><a class="viewcode-back" href="../shell.html#shell.decode_dict">[docs]</a><span class="k">def</span> <span class="nf">decode_dict</span><span class="p">(</span>
-    <span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    decode the dict from json to utf-8</span>
@@ -607,18 +662,19 @@ document.write(`
     <span class="k">return</span> <span class="n">new_dict</span></div>
 
 
-<div class="viewcode-block" id="find_config"><a class="viewcode-back" href="../shell.html#shell.find_config">[docs]</a><span class="k">def</span> <span class="nf">find_config</span><span class="p">():</span>
+<div class="viewcode-block" id="find_config"><a class="viewcode-back" href="../shell.html#shell.find_config">[docs]</a><span class="k">def</span> <span class="nf">find_config</span><span class="p">(</span>
+        <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;./config.json&quot;</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    find the config file through default paths</span>
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># try the default path</span>
-    <span class="n">config_path</span> <span class="o">=</span> <span class="s2">&quot;../source/config.json&quot;</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">config_path</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">config_path</span>
 
     <span class="c1"># try the path in upper folder</span>
-    <span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;../&#39;</span><span class="p">,</span> <span class="s2">&quot;config.json&quot;</span><span class="p">)</span>
+    <span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;../&#39;</span><span class="p">,</span> <span class="s2">&quot;config.json&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">config_path</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">config_path</span>
 

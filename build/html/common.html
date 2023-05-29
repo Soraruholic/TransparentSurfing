@@ -315,6 +315,27 @@ document.write(`
 <span class="sig-name descname"><span class="pre">ADDR_LENGTH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{False:</span> <span class="pre">0,</span> <span class="pre">AddressFamily.AF_INET:</span> <span class="pre">32,</span> <span class="pre">AddressFamily.AF_INET6:</span> <span class="pre">128}</span></em><a class="headerlink" href="#common.IPNetwork.ADDR_LENGTH" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="common.IPNetwork.add_network">
+<span class="sig-name descname"><span class="pre">add_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/common.html#IPNetwork.add_network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#common.IPNetwork.add_network" title="Permalink to this definition">#</a></dt>
+<dd><p>add ip address into the IPNetwork
+:param addr: the IP address</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="common.is_ip">
+<span class="sig-prename descclassname"><span class="pre">common.</span></span><span class="sig-name descname"><span class="pre">is_ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/common.html#is_ip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#common.is_ip" title="Permalink to this definition">#</a></dt>
+<dd><p>check if the address is a valid ip address</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>addr</strong> – the address</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool or int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -396,8 +417,10 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common.IPNetwork"><code class="docutils literal notranslate"><span class="pre">IPNetwork</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common.IPNetwork.ADDR_LENGTH"><code class="docutils literal notranslate"><span class="pre">IPNetwork.ADDR_LENGTH</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common.IPNetwork.add_network"><code class="docutils literal notranslate"><span class="pre">IPNetwork.add_network()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common.is_ip"><code class="docutils literal notranslate"><span class="pre">is_ip()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common.to_bytes"><code class="docutils literal notranslate"><span class="pre">to_bytes()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common.to_str"><code class="docutils literal notranslate"><span class="pre">to_str()</span></code></a></li>
 </ul>
