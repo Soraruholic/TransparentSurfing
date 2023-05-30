@@ -1,5 +1,5 @@
 """
-Created on 2013-05-27 By mafuholic
+This module is used to parse command line arguments and config file.
 """
 import getopt
 import sys
@@ -7,49 +7,15 @@ import traceback
 import logging
 import os
 import json
-import signal
+from src.encrypt import try_cipher
+from src.err_handler import error_handler, t_b
+from src.common import to_bytes, to_str, IPNetwork
 
 VERBOSE_LEVEL = 5
 verbose = 0
-t_b = False
 short_opts = ""
 v_count = 0
 long_opts = []
-err_msg = {1: "Python 2.6 or newer is required, but you are running",
-           2: "Mode should either be server or local",
-           3: "JSON format error in config file:",
-           4: "Options can not get parsed from command line",
-           5: "Config file not found",
-           6: "Server address not specified",
-           7: "Not a valid CIDR notation:",
-           8: "Password not specified",
-           9: "Neither password nor port_password specified",
-           10: 'DON\'T USE DEFAULT PASSWORD! Please change it in your config.json!'}
-
-
-def error_handler(
-        error_no: int,
-        error_text: str,
-        tb: str = None,
-        trace_back: bool = True
-):
-    """
-    handle all exceptions
-
-    :param error_no: exception type
-    :param error_text: exception value
-    :param tb: traceback
-    :param trace_back: whether to print traceback
-    """
-    if not trace_back:
-        tb = ""
-    logging.error("[E{}]: {} {}".format(error_no, err_msg[error_no], str(error_text)), exc_info=tb)
-    if trace_back:
-        if type == KeyboardInterrupt:
-            # exit all threads
-            os.kill(os.getpid(), signal.SIGTERM)
-        else:
-            sys.exit(1)
 
 
 def check_python_version():
@@ -61,9 +27,6 @@ def check_python_version():
             raise ValueError(1)
     except ValueError as e:
         error_handler(int(str(e)), sys.version_info[:2], traceback.format_exc(), t_b)
-
-
-from common import to_bytes, to_str
 
 
 def get_config(
@@ -272,7 +235,6 @@ def check_config(
     :param config: the configuration to be checked
     :param mode: the mode of the configuration
     """
-    from common import IPNetwork
     if config.get('daemon', None) == 'stop':
         # no need to specify configuration for daemon stop
         return
@@ -332,7 +294,7 @@ def check_config(
     except ValueError as e:
         error_handler(int(str(e)), '', traceback.format_exc(), t_b)
 
-    encrypt.try_cipher(config['password'], config['method'])
+    try_cipher(config['password'], config['method'])
 
 
 def decode_list(

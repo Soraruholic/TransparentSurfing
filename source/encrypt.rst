@@ -1,7 +1,0 @@
-encrypt module
-==============
-
-.. automodule:: encrypt
-   :members:
-   :undoc-members:
-   :show-inheritance:

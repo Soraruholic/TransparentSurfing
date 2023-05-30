@@ -6,6 +6,21 @@ import socket
 import struct
 import traceback
 import logging
+from src.err_handler import error_handler, t_b
+
+
+def compat_ord(
+        s: bytes or str,
+):
+    """
+    convert string to int
+
+    :param s: the string to be converted
+    :rtype: int
+    """
+    if type(s) == int:
+        return s
+    return ord(s)
 
 
 
@@ -60,14 +75,13 @@ class IPNetwork(object):
         list(map(self.add_network, addr_list))
 
     def add_network(
-        self,
-        addr: str,
+            self,
+            addr: str,
     ):
         """
         add ip address into the IPNetwork
         :param addr: the IP address
         """
-        from shell import error_handler, t_b
         if addr == "":
             return
         block = addr.split('/')
@@ -108,8 +122,8 @@ class IPNetwork(object):
             self._network_list_v6.append((ip, prefix_size))
 
     def __contains__(
-        self,
-        addr: str,
+            self,
+            addr: str,
     ):
         """
         check if the address is in the IPNetwork
@@ -129,7 +143,7 @@ class IPNetwork(object):
 
 
 def is_ip(
-    addr: str or bytes,
+        addr: str or bytes,
 ):
     """
     check if the address is a valid ip address

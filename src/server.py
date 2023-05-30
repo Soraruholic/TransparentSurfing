@@ -1,7 +1,7 @@
 """
 shadowsocks server
 """
-from shell import check_python_version, get_config, print_server_help
+from src.shell import check_python_version, get_config, print_server_help
 
 
 def run():
